@@ -5,7 +5,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{5,6} )
 
-inherit cmake-utils python-r1 virtualx git-r3
+inherit cmake-utils python-single-r1 virtualx git-r3
 
 DESCRIPTION="Python bindings for the Qt framework"
 HOMEPAGE="https://wiki.qt.io/PySide2"
@@ -104,7 +104,7 @@ src_prepare() {
 src_configure() {
 	# Prevent "Could not detect Python module installation directory" error
 	python_copy_sources
-	python_setup
+	python_setup 'python3*'
 	
 	# See COLLECT_MODULE_IF_FOUND macros in CMakeLists.txt
 	local mycmakeargs=(
