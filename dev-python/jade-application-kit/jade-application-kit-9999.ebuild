@@ -8,7 +8,7 @@ EGIT_REPO_URI="https://github.com/codesardine/Jade-Application-Kit"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="~amd64"
 IUSE=""
 RESTRICT="network-sandbox"
 
