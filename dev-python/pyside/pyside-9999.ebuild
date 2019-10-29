@@ -59,6 +59,7 @@ DEPEND="
 	>=dev-qt/qtlocation-${QT_PV}
 	>=dev-qt/qtscxml-${QT_PV}
 	>=dev-qt/qtsensors-${QT_PV}
+	>=dev-qt/qtmultimedia-${QT_PV}
 	>=dev-qt/qtspeech-${QT_PV}
 	>=dev-qt/qtwebengine-${QT_PV}
 	>=dev-qt/qt3d-${QT_PV}
