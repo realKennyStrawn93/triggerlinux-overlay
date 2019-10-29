@@ -1,0 +1,12 @@
+<repositories encoding="unicode" version="1.1">
+  <repo priority="50" quality="experimental">
+    <name>triggerlinux-overlay</name>
+    <description>TriggerLinux Portage overlay</description>
+    <homepage>https://github.com/realKennyStrawn93/TriggerLinux</homepage>
+    <owner>
+      <email>Kenny.Strawn@gmail.com</email>
+      <name>Kenny Strawn</name>
+    </owner>
+    <source type="git">https://github.com/realKennyStrawn93/triggerlinux-overlay</source>
+  </repo>
+</repositories>
