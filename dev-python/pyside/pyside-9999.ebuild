@@ -27,23 +27,27 @@ IUSE="charts concurrent datavis declarative designer gui help multimedia
 # 'grep "set(.*_deps" "${S}"/PySide2/Qt*/CMakeLists.txt'
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
+	concurrent
+	gui
+	widgets
+	multimedia
+	network
+	printsupport
+	sql
+	webchannel
+	webengine
+	webkit
+	websockets
+	testlib
+	x11extras
 	charts? ( widgets )
 	datavis? ( gui )
 	declarative? ( gui network )
 	designer? ( widgets )
 	help? ( widgets )
-	multimedia? ( gui network )
 	opengl? ( widgets )
-	printsupport? ( widgets )
 	scripttools? ( gui script widgets )
-	sql? ( widgets )
 	svg? ( widgets )
-	testlib? ( widgets )
-	webengine? ( gui network webchannel widgets )
-	webkit? ( gui network printsupport widgets )
-	websockets? ( network )
-	widgets? ( gui )
-	x11extras? ( gui )
 "
 
 # Minimum version of Qt required, derived from the CMakeLists.txt line:
@@ -59,9 +63,7 @@ DEPEND="
 	>=dev-qt/qtlocation-${QT_PV}
 	>=dev-qt/qtscxml-${QT_PV}
 	>=dev-qt/qtsensors-${QT_PV}
-	>=dev-qt/qtmultimedia-${QT_PV}
 	>=dev-qt/qtspeech-${QT_PV}
-	>=dev-qt/qtwebengine-${QT_PV}
 	>=dev-qt/qt3d-${QT_PV}
 	charts? ( >=dev-qt/qtcharts-${QT_PV} )
 	concurrent? ( >=dev-qt/qtconcurrent-${QT_PV} )
