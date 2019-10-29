@@ -16,7 +16,7 @@ EGIT_SUBMODULES=()
 # See "sources/pyside2/PySide2/licensecomment.txt" for licensing details.
 LICENSE="|| ( GPL-2 GPL-3+ LGPL-3 )"
 SLOT="2"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 # TODO: speech
 IUSE="charts concurrent datavis declarative designer gui help multimedia
