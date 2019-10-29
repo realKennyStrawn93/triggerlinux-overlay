@@ -22,5 +22,5 @@ S=${WORKDIR}
 src_install() {
 	git clone --depth 1 $EGIT_REPO_URI $S/Jade-Application-Kit
 	cd $S/Jade-Application-Kit
-        ./setup.py --prefix=$D install
+        python setup.py --prefix=$D install
 }
