@@ -26,6 +26,7 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR}
 
 src_prepare() {
+	eapply_user
 	git-r3_fetch ${EGIT_REPO_URI} ${S}/TriggerLinux
 }
 
