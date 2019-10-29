@@ -104,6 +104,7 @@ src_prepare() {
 src_configure() {
 	# Prevent "Could not detect Python module installation directory" error
 	python_copy_sources
+	python_setup
 	
 	# See COLLECT_MODULE_IF_FOUND macros in CMakeLists.txt
 	local mycmakeargs=(
