@@ -52,9 +52,16 @@ QT_PV="5.9.0:5"
 
 DEPEND="
 	${PYTHON_DEPS}
-	>=dev-python/shiboken-5.12.4[${PYTHON_USEDEP}]
+	>=dev-python/shiboken-${QT_PV}
 	>=dev-qt/qtcore-${QT_PV}
 	>=dev-qt/qtxml-${QT_PV}
+	>=dev-qt/qtpositioning-${QT_PV}
+	>=dev-qt/qtlocation-${QT_PV}
+	>=dev-qt/qtscxml-${QT_PV}
+	>=dev-qt/qtsensors-${QT_PV}
+	>=dev-qt/qtspeech-${QT_PV}
+	>=dev-qt/qtwebengine-${QT_PV}
+	>=dev-qt/qt3d-${QT_PV}
 	charts? ( >=dev-qt/qtcharts-${QT_PV} )
 	concurrent? ( >=dev-qt/qtconcurrent-${QT_PV} )
 	datavis? ( >=dev-qt/qtdatavis3d-${QT_PV} )
