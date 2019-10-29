@@ -143,7 +143,7 @@ src_configure() {
 			"${mycmakeargs[@]}"
 			-DPYTHON_EXECUTABLE="${PYTHON}"
 		)
-		cmake-utils_src_configure
+		python_foreach_impl cmake-utils_src_configure
 	}
 	python_foreach_impl configuration
 }
