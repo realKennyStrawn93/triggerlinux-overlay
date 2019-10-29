@@ -7,7 +7,6 @@ DESCRIPTION="TriggerLinux Catalyst wrapper scripts"
 HOMEPAGE="https://github.com/realKennyStrawn93/TriggerLinux"
 EGIT_REPO_URI="https://github.com/realKennyStrawn93/TriggerLinux"
 
-EGIT_CHECKOUT_DIR="${S}/TriggerLinux"
 EGIT_CLONE_TYPE="mirror"
 
 LICENSE="GPL-3"
@@ -25,6 +24,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 S=${WORKDIR}
+
+src_prepare() {
+	git-r3_fetch ${EGIT_REPO_URI} ${S}/TriggerLinux
+}
 
 src_install() {
         mkdir ${D}/opt
