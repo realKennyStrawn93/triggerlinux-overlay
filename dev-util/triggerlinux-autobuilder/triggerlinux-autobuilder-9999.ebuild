@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit git-r3
+
 DESCRIPTION="TriggerLinux Catalyst wrapper scripts"
 HOMEPAGE="https://github.com/realKennyStrawn93/TriggerLinux"
 EGIT_REPO_URI="https://github.com/realKennyStrawn93/TriggerLinux"
@@ -27,7 +29,8 @@ S=${WORKDIR}
 
 src_prepare() {
 	eapply_user
-	git-r3_fetch ${EGIT_REPO_URI} ${S}/TriggerLinux
+	git-r3_fetch ${EGIT_REPO_URI}
+	git-r3_checkout ${EGIT_REPO_URI} ${S}/TriggerLinux
 }
 
 src_install() {
