@@ -52,7 +52,7 @@ QT_PV="5.9.0:5"
 
 DEPEND="
 	${PYTHON_DEPS}
-	>=dev-python/shiboken-${QT_PV}
+	>=dev-python/shiboken-5.12.4
 	>=dev-qt/qtcore-${QT_PV}
 	>=dev-qt/qtxml-${QT_PV}
 	>=dev-qt/qtpositioning-${QT_PV}
