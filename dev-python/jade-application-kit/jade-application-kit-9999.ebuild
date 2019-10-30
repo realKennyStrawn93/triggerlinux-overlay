@@ -20,15 +20,15 @@ DEPEND="
 	>=dev-python/pyside-5.12.14
 "
 RDEPEND="${DEPEND}"
-S=${WORKDIR}
+S=${WORKDIR/Jade-Application-Kit}
 
 src_prepare() {
 	eapply_user
 	git-r3_fetch ${EGIT_REPO_URI}
-	git-r3_checkout ${EGIT_REPO_URI} ${S}/Jade-Application-Kit
+	git-r3_checkout ${EGIT_REPO_URI} ${S}
 }
 
 src_install() {
-	cd ${S}/Jade-Application-Kit
+	cd ${S}
         distutils-r1_python_install
 }
