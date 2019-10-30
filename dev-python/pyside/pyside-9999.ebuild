@@ -94,7 +94,6 @@ S=${WORKDIR}/${P}/sources/pyside2
 
 pkg_setup() {
 	# Prevent "Could not detect Python module installation directory" error
-	python_copy_sources
 	python_setup 'python3*'
 }
 
