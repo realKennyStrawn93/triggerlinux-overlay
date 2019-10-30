@@ -145,7 +145,7 @@ src_configure() {
 			"${mycmakeargs[@]}"
 			-DPYTHON_EXECUTABLE="${PYTHON}"
 		)
-		python_foreach_impl PYTHON_LIBRARIES="${PYTHON}/" PYTHON_INCLUDE_DIRS="/usr/include/${EPYTHON}" cmake-utils_src_configure
+		python_foreach_impl cmake-utils_src_configure
 	}
 	python_foreach_impl configuration
 }
