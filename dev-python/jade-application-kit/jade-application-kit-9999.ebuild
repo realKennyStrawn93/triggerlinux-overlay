@@ -1,6 +1,6 @@
 # Jade Application Kit (JAK): https://github.com/codesardine/Jade-Application-Kit
 
-EAPI=7
+EAPI=6
 
 PYTHON_COMPAT=( python3_{1,2,3,4,5,6,7} )
 inherit git-r3 distutils-r1
