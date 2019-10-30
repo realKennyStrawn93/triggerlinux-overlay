@@ -30,5 +30,5 @@ src_prepare() {
 
 src_install() {
 	cd ${S}/Jade-Application-Kit
-        distutils-r1_python install
+        distutils-r1_python_install
 }
