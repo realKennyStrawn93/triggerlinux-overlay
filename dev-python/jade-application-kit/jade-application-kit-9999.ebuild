@@ -2,7 +2,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{1,2,3,4,5,6,7,8,9} )
+PYTHON_COMPAT=( python3_{1,2,3,4,5,6,7} )
 inherit git-r3 distutils-r1
 
 DESCRIPTION="Jade Application Kit (JAK)"
