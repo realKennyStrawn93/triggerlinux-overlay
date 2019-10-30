@@ -3,7 +3,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 python3_{5,6} )
+PYTHON_COMPAT=( python3_{5,6,7} )
 
 inherit cmake-utils python-r1 virtualx git-r3
 
@@ -145,7 +145,7 @@ src_configure() {
 			"${mycmakeargs[@]}"
 			-DPYTHON_EXECUTABLE="${PYTHON}"
 		)
-		python_foreach_impl cmake-utils_src_configure
+		python_foreach_impl PYTHON_LIBRARIES="${PYTHON}/" PYTHON_INCLUDE_DIRS="/usr/include/${EPYTHON}" cmake-utils_src_configure
 	}
 	python_foreach_impl configuration
 }
