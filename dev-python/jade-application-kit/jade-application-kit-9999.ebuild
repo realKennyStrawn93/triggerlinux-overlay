@@ -2,6 +2,8 @@
 
 EAPI=7
 
+inherit git-r3 distutils-r1
+
 DESCRIPTION="Jade Application Kit (JAK)"
 HOMEPAGE="https://github.com/codesardine/Jade-Application-Kit"
 EGIT_REPO_URI="https://github.com/codesardine/Jade-Application-Kit"
@@ -19,8 +21,13 @@ DEPEND="
 RDEPEND="${DEPEND}"
 S=${WORKDIR}
 
+src_prepare() {
+	eapply_user
+	git-r3_fetch ${EGIT_REPO_URI}
+	git-r3_checkout ${EGIT_REPO_URI} ${S}/Jade-Application-Kit
+}
+
 src_install() {
-	git clone --depth 1 $EGIT_REPO_URI $S/Jade-Application-Kit
-	cd $S/Jade-Application-Kit
-        python setup.py --prefix=$D install
+	cd ${S}/Jade-Application-Kit
+        distutils-r1_python install
 }
