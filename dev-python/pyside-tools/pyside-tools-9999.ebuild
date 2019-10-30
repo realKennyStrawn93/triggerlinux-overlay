@@ -26,8 +26,8 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 # "PySide2.QtWidgets" C extensions and hence requires "gui" and "widgets".
 RDEPEND="
 	${PYTHON_DEPS}
-	>=dev-python/pyside-${PV}:${SLOT}[gui,widgets,${PYTHON_USEDEP}]
-	>=dev-python/shiboken-${PV}:${SLOT}[${PYTHON_USEDEP}]
+	>=dev-python/pyside2-${PV}:${SLOT}[gui,widgets,${PYTHON_USEDEP}]
+	>=dev-python/shiboken2-${PV}:${SLOT}[${PYTHON_USEDEP}]
 	dev-qt/qtcore:5
 "
 DEPEND="${RDEPEND}
