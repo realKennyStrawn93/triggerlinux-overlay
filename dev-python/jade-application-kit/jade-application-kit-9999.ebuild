@@ -26,6 +26,12 @@ src_prepare() {
 	eapply_user
 	git-r3_fetch ${EGIT_REPO_URI}
 	git-r3_checkout ${EGIT_REPO_URI} ${S}
+
+	local jak_impls=() i EPYTHON
+	for i in "${PYTHON_COMPAT[@]}"; do
+		python_export "${i}" EPYTHON
+		jak_impls+=( "${EPYTHON}" )
+	done
 }
 
 src_install() {
