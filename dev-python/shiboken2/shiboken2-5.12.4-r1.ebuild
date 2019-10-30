@@ -11,6 +11,8 @@ EAPI=7
 # Once split, the PySide2 ebuild should be revised to require
 # "/usr/bin/shiboken2" at build time and "libshiboken2-*.so" at runtime.
 
+# Note that PySide2 and friends are currently PyPy-incompatible. See also:
+#     https://bugreports.qt.io/browse/PYSIDE-535
 PYTHON_COMPAT=( python2_7 python3_{5,6,7} )
 
 inherit cmake-utils llvm python-r1
@@ -26,7 +28,7 @@ SRC_URI="https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-${
 # with version 1.0 of a Qt-specific exception enabling shiboken2 output to be
 # arbitrarily relicensed. (TODO)
 LICENSE="|| ( GPL-2 GPL-3+ LGPL-3 ) GPL-3"
-SLOT="2"
+SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+docstrings numpy test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -80,6 +82,11 @@ src_configure() {
 			-DPYTHON_CONFIG_SUFFIX="-${EPYTHON}"
 			-DPYTHON_EXECUTABLE="${PYTHON}"
 			-DUSE_PYTHON_VERSION="${EPYTHON#python}"
+
+			# Install Python-versioned files (e.g.,
+			# "/usr/bin/shiboken2-${EPYTHON}",
+			# "/usr/lib64/pkgconfig/shiboken2-${EPYTHON}.pc").
+			-Dshiboken2_SUFFIX="-${EPYTHON}"
 		)
 		# CMakeLists.txt expects LLVM_INSTALL_DIR as an environment variable.
 		LLVM_INSTALL_DIR="$(get_llvm_prefix)" cmake-utils_src_configure
@@ -96,9 +103,17 @@ src_test() {
 }
 
 src_install() {
-	shiboken_install() {
-		cmake-utils_src_install
-		cp "${ED}/usr/$(get_libdir)"/pkgconfig/${PN}2{,-${EPYTHON}}.pc || die
-	}
-	python_foreach_impl shiboken_install
+	python_foreach_impl cmake-utils_src_install
+
+	# CMakeLists.txt installs a "Shiboken2Targets-gentoo.cmake" file forcing
+	# downstream consumers (e.g., PySide2) to target one "libshiboken2-*.so"
+	# library linked to a single Python interpreter. See also:
+	#     https://bugreports.qt.io/browse/PYSIDE-1053
+	sed -i -e 's~libshiboken2-python[[:digit:]]\+\.[[:digit:]]\+~libshiboken2${PYTHON_CONFIG_SUFFIX}~g' \
+		"${ED}/usr/$(get_libdir)/cmake/Shiboken2-${PV}/Shiboken2Targets-gentoo.cmake" || die
+
+	# Remove the broken "shiboken_tool.py" script. By inspection, this script
+	# reduces to a noop. Moreover, this script raises the following exception:
+	#     FileNotFoundError: [Errno 2] No such file or directory: '/usr/bin/../shiboken_tool.py': '/usr/bin/../shiboken_tool.py'
+	rm "${ED}/usr/bin/shiboken_tool.py"
 }
