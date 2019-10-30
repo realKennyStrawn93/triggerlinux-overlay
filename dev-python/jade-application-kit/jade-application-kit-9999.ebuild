@@ -5,6 +5,8 @@ EAPI=7
 PYTHON_COMPAT=( python3_{1,2,3,4,5,6,7} )
 inherit git-r3 distutils-r1
 
+EPYTHON="$(echo ${PYTHON_SITEDIR} | cut -d '/' -f4)"
+
 DESCRIPTION="Jade Application Kit (JAK)"
 HOMEPAGE="https://github.com/codesardine/Jade-Application-Kit"
 EGIT_REPO_URI="https://github.com/codesardine/Jade-Application-Kit"
@@ -26,12 +28,6 @@ src_prepare() {
 	eapply_user
 	git-r3_fetch ${EGIT_REPO_URI}
 	git-r3_checkout ${EGIT_REPO_URI} ${S}
-
-	local jak_impls=() i EPYTHON
-	for i in "${PYTHON_COMPAT[@]}"; do
-		python_export "${i}" EPYTHON
-		jak_impls+=( "${EPYTHON}" )
-	done
 }
 
 src_install() {
