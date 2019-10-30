@@ -92,11 +92,6 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${P}/sources/pyside2
 
-#No python_foreach_impl python-single-r1 eclass
-pkg_setup() {
-	python-single-r1_pkg_setup
-}
-
 src_prepare() {
 	if use prefix; then
 		cp "${FILESDIR}"/rpath.cmake . || die
@@ -107,6 +102,10 @@ src_prepare() {
 }
 
 src_configure() {
+	# Prevent "Could not detect Python module installation directory" error
+	python_copy_sources
+	python_setup 'python3*'
+	
 	# See COLLECT_MODULE_IF_FOUND macros in CMakeLists.txt
 	local mycmakeargs=(
 		-DBUILD_TESTS=$(usex test)
@@ -145,18 +144,18 @@ src_configure() {
 			"${mycmakeargs[@]}"
 			-DPYTHON_EXECUTABLE="${PYTHON}"
 		)
-		cmake-utils_src_configure
+		python_foreach_impl cmake-utils_src_configure
 	}
-	configuration
+	python_foreach_impl configuration
 }
 
 src_compile() {
-	cmake-utils_src_compile
+	python_foreach_impl cmake-utils_src_compile
 }
 
 src_test() {
 	local -x PYTHONDONTWRITEBYTECODE
-	virtx cmake-utils_src_test
+	python_foreach_impl virtx cmake-utils_src_test
 }
 
 src_install() {
@@ -164,5 +163,5 @@ src_install() {
 		cmake-utils_src_install
 		mv "${ED}"usr/$(get_libdir)/pkgconfig/${PN}2{,-${EPYTHON}}.pc || die
 	}
-	installation
+	python_foreach_impl installation
 }
