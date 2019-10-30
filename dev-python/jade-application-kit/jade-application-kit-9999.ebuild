@@ -3,7 +3,7 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{1,2,3,4,5,6,7} )
-inherit git-r3 distutils-r1
+inherit git-r3 distutils-r1 python-single-r1
 
 DESCRIPTION="Jade Application Kit (JAK)"
 HOMEPAGE="https://github.com/codesardine/Jade-Application-Kit"
@@ -23,14 +23,13 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR/Jade-Application-Kit}
 
 src_prepare() {	
-	EPYTHON="$(echo ${PYTHON_SITEDIR} | cut -d '/' -f4)"
+	use python && python-single-r1_pkg_setup
 	eapply_user
 	git-r3_fetch ${EGIT_REPO_URI}
 	git-r3_checkout ${EGIT_REPO_URI} ${S}
 }
 
 src_install() {
-	EPYTHON="$(echo ${PYTHON_SITEDIR} | cut -d '/' -f4)"
 	cd ${S}
         distutils-r1_python_install
 }
