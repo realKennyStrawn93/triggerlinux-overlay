@@ -17,7 +17,7 @@ RESTRICT="network-sandbox"
 
 DEPEND="
 	>=dev-lang/python-3.6
-	>=dev-python/pyside2-5.12.15
+	>=dev-python/pyside2-5.12.5
 "
 RDEPEND="${DEPEND}"
 S=${WORKDIR/Jade-Application-Kit}
