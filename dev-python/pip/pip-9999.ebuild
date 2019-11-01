@@ -32,7 +32,7 @@ fi
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE=""
+IUSE="-test"
 
 # disable-system-install patch breaks tests
 RESTRICT=""
