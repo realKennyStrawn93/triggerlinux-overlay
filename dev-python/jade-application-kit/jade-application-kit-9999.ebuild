@@ -2,7 +2,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{1,2,3,4,5,6,7} )
+PYTHON_COMPAT=( python2_7 python3_{1,2,3,4,5,6,7} )
 inherit git-r3 distutils-r1 python-r1
 
 DESCRIPTION="Jade Application Kit (JAK)"
@@ -19,8 +19,7 @@ REQUIRED_USE="$(python_gen_useflags ${PYTHON_COMPAT})"
 
 DEPEND="
 	${PYTHON_DEPS}
-	>=dev-qt/qtwebengine-5.12.3[python_targets_python3_6]
-	>=dev-lang/python-3.6
+	>=dev-qt/qtwebengine-5.12.3
 	>=dev-python/pyside2-5.12.5
 "
 RDEPEND="${DEPEND}"
