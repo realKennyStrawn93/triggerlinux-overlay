@@ -15,7 +15,7 @@ KEYWORDS="~amd64"
 IUSE=""
 RESTRICT="network-sandbox"
 
-REQUIRED_USE="|| $(python_gen_useflags ${PYTHON_COMPAT})"
+REQUIRED_USE="$(python_gen_useflags ${PYTHON_COMPAT})"
 
 DEPEND="
 	>=dev-qt/qtwebengine-5.12.3[${PYTHON_USEDEP}]
