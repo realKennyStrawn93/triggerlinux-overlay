@@ -11,7 +11,7 @@ if [[ ${QT5_BUILD_TYPE} == release ]]; then
 	KEYWORDS="amd64 arm arm64 x86"
 fi
 
-IUSE="alsa bindist designer geolocation jumbo-build pax_kernel pulseaudio
+IUSE="alsa bindist designer geolocation jumbo-build pax_kernel python_targets_python3_6 pulseaudio
 	+system-ffmpeg +system-icu widgets"
 REQUIRED_USE="designer? ( widgets )"
 
