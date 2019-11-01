@@ -6,17 +6,18 @@
 # qt@gentoo.org
 # @AUTHOR:
 # Davide Pesavento <pesa@gentoo.org>
-# @SUPPORTED_EAPIS: 7
+# @SUPPORTED_EAPIS: 6 7
 # @BLURB: Eclass for Qt5 split ebuilds.
 # @DESCRIPTION:
 # This eclass contains various functions that are used when building Qt5.
-# Requires EAPI 7.
+# Requires EAPI 6.
 
 if [[ ${CATEGORY} != dev-qt ]]; then
 	die "qt5-build.eclass is only to be used for building Qt 5"
 fi
 
 case ${EAPI} in
+	6)	inherit eapi7-ver ;;
 	7)	: ;;
 	*)	die "qt5-build.eclass: unsupported EAPI=${EAPI:-0}" ;;
 esac
@@ -117,6 +118,9 @@ BDEPEND="
 	dev-lang/perl
 	virtual/pkgconfig
 "
+case ${EAPI} in
+	6) DEPEND+=" ${BDEPEND}" ;;
+esac
 if [[ ${PN} != qttest ]]; then
 	DEPEND+=" test? ( ~dev-qt/qttest-${PV} )"
 fi
@@ -284,7 +288,7 @@ qt5-build_src_install() {
 	qt5_install_module_config
 
 	# prune libtool files
-	find "${D}" -name '*.la' -type f -delete || die
+	find "${D}" -name '*.la' -delete || die
 }
 
 # @FUNCTION: qt5-build_pkg_postinst
@@ -565,11 +569,7 @@ qt5_base_configure() {
 		-no-freetype -no-harfbuzz
 		-no-openssl -no-libproxy
 		-no-xcb-xlib
-
-		# bug 672340
-		-no-xkbcommon
-		$([[ ${QT5_MINOR_VERSION} -lt 15 ]] && echo -no-xcb-xinput)
-		$([[ ${QT5_MINOR_VERSION} -ge 15 ]] && echo -no-bundled-xcb-xinput)
+		-no-xcb-xinput -no-xkbcommon # bug 672340
 
 		# cannot use -no-gif because there is no way to override it later
 		#-no-gif
@@ -617,7 +617,7 @@ qt5_base_configure() {
 
 		# disable undocumented X11-related flags, override in qtgui
 		# (not shown in ./configure -help output)
-		$([[ ${QT5_MINOR_VERSION} -lt 15 ]] && echo -no-xkb)
+		-no-xkb
 
 		# always enable session management support: it doesn't need extra deps
 		# at configure time and turning it off is dangerous, see bug 518262
@@ -811,18 +811,18 @@ qt5_install_module_config() {
 qt5_regenerate_global_configs() {
 	einfo "Regenerating gentoo-qconfig.h"
 
-	find "${ROOT}${QT5_HEADERDIR}"/Gentoo \
+	find "${ROOT%/}${QT5_HEADERDIR}"/Gentoo \
 		-name '*-qconfig.h' -a \! -name 'gentoo-qconfig.h' -type f \
 		-execdir cat '{}' + | sort -u > "${T}"/gentoo-qconfig.h
 
 	[[ -s ${T}/gentoo-qconfig.h ]] || ewarn "Generated gentoo-qconfig.h is empty"
-	cp "${T}"/gentoo-qconfig.h "${ROOT}${QT5_HEADERDIR}"/Gentoo/gentoo-qconfig.h \
+	cp "${T}"/gentoo-qconfig.h "${ROOT%/}${QT5_HEADERDIR}"/Gentoo/gentoo-qconfig.h \
 		|| eerror "Failed to install new gentoo-qconfig.h"
 
 	einfo "Updating QT_CONFIG in qconfig.pri"
 
-	local qconfig_pri=${ROOT}${QT5_ARCHDATADIR}/mkspecs/qconfig.pri
-	local qconfig_pri_orig=${ROOT}${QT5_ARCHDATADIR}/mkspecs/gentoo/qconfig-qtcore.pri
+	local qconfig_pri=${ROOT%/}${QT5_ARCHDATADIR}/mkspecs/qconfig.pri
+	local qconfig_pri_orig=${ROOT%/}${QT5_ARCHDATADIR}/mkspecs/gentoo/qconfig-qtcore.pri
 	if [[ -f ${qconfig_pri} ]]; then
 		local x qconfig_add= qconfig_remove=
 		local qt_config new_qt_config=
@@ -835,7 +835,7 @@ qt5_regenerate_global_configs() {
 		# generate list of QT_CONFIG entries from the existing list,
 		# appending QCONFIG_ADD and excluding QCONFIG_REMOVE
 		eshopts_push -s nullglob
-		for x in "${ROOT}${QT5_ARCHDATADIR}"/mkspecs/gentoo/*-qconfig.pri; do
+		for x in "${ROOT%/}${QT5_ARCHDATADIR}"/mkspecs/gentoo/*-qconfig.pri; do
 			qconfig_add+=" $(sed -n 's/^QCONFIG_ADD=\s*//p' "${x}")"
 			qconfig_remove+=" $(sed -n 's/^QCONFIG_REMOVE=\s*//p' "${x}")"
 		done
@@ -855,8 +855,8 @@ qt5_regenerate_global_configs() {
 
 	einfo "Updating QT.global_private in qmodule.pri"
 
-	local qmodule_pri=${ROOT}${QT5_ARCHDATADIR}/mkspecs/qmodule.pri
-	local qmodule_pri_orig=${ROOT}${QT5_ARCHDATADIR}/mkspecs/gentoo/qmodule-qtcore.pri
+	local qmodule_pri=${ROOT%/}${QT5_ARCHDATADIR}/mkspecs/qmodule.pri
+	local qmodule_pri_orig=${ROOT%/}${QT5_ARCHDATADIR}/mkspecs/gentoo/qmodule-qtcore.pri
 	if [[ -f ${qmodule_pri} && -f ${qmodule_pri_orig} ]]; then
 		local x
 		local qprivateconfig_enabled= qprivateconfig_disabled=
@@ -867,7 +867,7 @@ qt5_regenerate_global_configs() {
 		qprivateconfig_orig_enabled="$(sed -n 's/^QT.global_private.enabled_features\s=\s*//p' "${qmodule_pri_orig}")"
 		qprivateconfig_orig_disabled="$(sed -n 's/^QT.global_private.disabled_features\s=\s*//p' "${qmodule_pri_orig}")"
 		eshopts_push -s nullglob
-		for x in "${ROOT}${QT5_ARCHDATADIR}"/mkspecs/gentoo/*-qmodule.pri; do
+		for x in "${ROOT%/}${QT5_ARCHDATADIR}"/mkspecs/gentoo/*-qmodule.pri; do
 			qprivateconfig_enabled+=" $(sed -n 's/^QT.global_private.enabled_features\s=\s*//p' "${x}")"
 			qprivateconfig_disabled+=" $(sed -n 's/^QT.global_private.disabled_features\s=\s*//p' "${x}")"
 		done
