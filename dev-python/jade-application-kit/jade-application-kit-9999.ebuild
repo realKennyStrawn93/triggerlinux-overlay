@@ -16,6 +16,7 @@ IUSE=""
 RESTRICT="network-sandbox"
 
 DEPEND="
+	>=dev-qt/qtwebengine-5.12.3::triggerlinux-overlay[${PYTHON_USEDEP}]
 	>=dev-lang/python-3.6
 	>=dev-python/pyside2-5.12.5
 "

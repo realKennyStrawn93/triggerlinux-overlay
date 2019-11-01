@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_7 python3_5 python3_6 python3_7 )
 inherit multiprocessing pax-utils python-any-r1 qt5-build
 
 DESCRIPTION="Library for rendering dynamic web content in Qt5 C++ and QML applications"
 
 if [[ ${QT5_BUILD_TYPE} == release ]]; then
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+	KEYWORDS="amd64 ~arm ~arm64 ~x86"
 fi
 
 IUSE="alsa bindist designer jumbo-build pax_kernel pulseaudio
@@ -79,8 +79,9 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES+=(
-	# bug 693668, upstream(?) TODO:
-	"${FILESDIR}/${PN}-5.13.1-no-kcrash-reporting.patch"
+	"${FILESDIR}/${PN}-5.12.0-nouveau-disable-gpu.patch" # bug 609752
+	"${FILESDIR}/${P}-pulseaudio-13.patch" # bug 694960
+	"${FILESDIR}/${P}-icu-65.patch"
 )
 
 src_prepare() {
@@ -88,14 +89,14 @@ src_prepare() {
 
 	if ! use jumbo-build; then
 		sed -i -e 's|use_jumbo_build=true|use_jumbo_build=false|' \
-			src/buildtools/config/common.pri || die
+			src/core/config/common.pri || die
 	fi
 
 	# bug 620444 - ensure local headers are used
 	find "${S}" -type f -name "*.pr[fio]" | xargs sed -i -e 's|INCLUDEPATH += |&$$QTWEBENGINE_ROOT/include |' || die
 
-	qt_use_disable_config alsa webengine-alsa src/buildtools/config/linux.pri
-	qt_use_disable_config pulseaudio webengine-pulseaudio src/buildtools/config/linux.pri
+	qt_use_disable_config alsa webengine-alsa src/core/config/linux.pri
+	qt_use_disable_config pulseaudio webengine-pulseaudio src/core/config/linux.pri
 
 	qt_use_disable_mod designer webenginewidgets src/plugins/plugins.pro
 

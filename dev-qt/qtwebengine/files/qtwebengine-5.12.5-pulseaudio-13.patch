@@ -1,4 +1,4 @@
-From b84e8682b312fb16b16ffb9591415067ceae69f8 Mon Sep 17 00:00:00 2001
+From 7ac85fb4cc6f44a21761a591ac497ae3d6bf966d Mon Sep 17 00:00:00 2001
 From: Allan Sandfeld Jensen <allan.jensen@qt.io>
 Date: Mon, 23 Sep 2019 13:49:53 +0200
 Subject: [PATCH] Fix building with pulseaudio 13
@@ -86,4 +86,3 @@ index 2a2d3e7552b..cdaa841b29f 100644
  }
 -- 
 2.16.3
-
