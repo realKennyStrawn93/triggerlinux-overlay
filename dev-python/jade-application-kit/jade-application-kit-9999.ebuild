@@ -18,6 +18,7 @@ RESTRICT="network-sandbox"
 REQUIRED_USE="$(python_gen_useflags ${PYTHON_COMPAT})"
 
 DEPEND="
+	${PYTHON_DEPS}
 	>=dev-qt/qtwebengine-5.12.3[${PYTHON_USEDEP}]
 	>=dev-lang/python-3.6
 	>=dev-python/pyside2-5.12.5
