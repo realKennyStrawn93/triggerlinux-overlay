@@ -10,7 +10,7 @@ DESCRIPTION="Gnome install & update software"
 HOMEPAGE="https://wiki.gnome.org/Apps/Software"
 
 LICENSE="GPL-2+"
-SLOT="1"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+firmware gnome gtk-doc packagekit spell test udev"
 
