@@ -29,6 +29,7 @@ RDEPEND="
 	firmware? ( >=sys-apps/fwupd-1.0.3 )
 	udev? ( dev-libs/libgudev )
 	>=gnome-base/gsettings-desktop-schemas-3.11.5
+	app-emulation/snapd-glib
         app-emulation/snapd
 "
 DEPEND="${RDEPEND}
