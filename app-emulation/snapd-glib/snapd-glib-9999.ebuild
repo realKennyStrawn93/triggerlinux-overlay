@@ -61,7 +61,7 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	sys-fs/xfsprogs
 	app-emulation/snapd
-	${LIVE_DEPEND}"
+	dev-util/gtk-doc"
 
 REQUIRED_USE="systemd"
 
