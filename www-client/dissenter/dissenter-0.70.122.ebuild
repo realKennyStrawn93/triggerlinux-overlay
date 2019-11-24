@@ -112,6 +112,7 @@ src_install() {
 	newicon -s 22 "${DISSENTER_HOME}"/product_logo_22.png "${PN}".png || die
 	newicon -s 24 "${DISSENTER_HOME}"/product_logo_24.png "${PN}".png || die
 	newicon -s 32 "${DISSENTER_HOME}"/product_logo_32.png "${PN}".png || die
+	newicon -s 32 "${DISSENTER_HOME}"/product_logo_32.png "${PN}".xpm || die
 	newicon -s 48 "${DISSENTER_HOME}"/product_logo_48.png "${PN}".png || die
 	newicon -s 64 "${DISSENTER_HOME}"/product_logo_64.png "${PN}".png || die
 	newicon -s 128 "${DISSENTER_HOME}"/product_logo_128.png "${PN}".png || die
