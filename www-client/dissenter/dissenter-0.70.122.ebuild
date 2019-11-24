@@ -106,6 +106,8 @@ src_install() {
 
 	dosym "${DISSENTER_HOME}"/"${PN}" /usr/bin/"${PN}" || die
 
+	cp -r ${S}/* ${D}/
+
 	newicon -s 16 "${DISSENTER_HOME}"/product_logo_16.png "${PN}".png || die
 	newicon -s 22 "${DISSENTER_HOME}"/product_logo_22.png "${PN}".png || die
 	newicon -s 24 "${DISSENTER_HOME}"/product_logo_24.png "${PN}".png || die
@@ -114,8 +116,6 @@ src_install() {
 	newicon -s 64 "${DISSENTER_HOME}"/product_logo_64.png "${PN}".png || die
 	newicon -s 128 "${DISSENTER_HOME}"/product_logo_128.png "${PN}".png || die
 	newicon -s 256 "${DISSENTER_HOME}"/product_logo_256.png "${PN}".png || die
-
-	cp -r ${S}/* ${D}/
 	
 	dodoc "${DISSENTER_DOC}"/changelog
 	dodoc "${DISSENTER_MAN}"/"${PN}"-browser-stable.1
