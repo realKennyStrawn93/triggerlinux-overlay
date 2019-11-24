@@ -108,15 +108,15 @@ src_install() {
 
 	cp -r ${S}/* ${D}/
 
-	newicon -s 16 "${DISSENTER_HOME}"/product_logo_16.png "${PN}".png || die
-	newicon -s 22 "${DISSENTER_HOME}"/product_logo_22.png "${PN}".png || die
-	newicon -s 24 "${DISSENTER_HOME}"/product_logo_24.png "${PN}".png || die
-	newicon -s 32 "${DISSENTER_HOME}"/product_logo_32.png "${PN}".png || die
-	newicon -s 32 "${DISSENTER_HOME}"/product_logo_32.xpm "${PN}".xpm || die
-	newicon -s 48 "${DISSENTER_HOME}"/product_logo_48.png "${PN}".png || die
-	newicon -s 64 "${DISSENTER_HOME}"/product_logo_64.png "${PN}".png || die
-	newicon -s 128 "${DISSENTER_HOME}"/product_logo_128.png "${PN}".png || die
-	newicon -s 256 "${DISSENTER_HOME}"/product_logo_256.png "${PN}".png || die
+	newicon -s 16 "${DISSENTER_HOME}"/product_logo_16.png "${PN}"-browser.png || die
+	newicon -s 22 "${DISSENTER_HOME}"/product_logo_22.png "${PN}"-browser.png || die
+	newicon -s 24 "${DISSENTER_HOME}"/product_logo_24.png "${PN}"-browser.png || die
+	newicon -s 32 "${DISSENTER_HOME}"/product_logo_32.png "${PN}"-browser.png || die
+	newicon -s 32 "${DISSENTER_HOME}"/product_logo_32.xpm "${PN}"-browser.xpm || die
+	newicon -s 48 "${DISSENTER_HOME}"/product_logo_48.png "${PN}"-browser.png || die
+	newicon -s 64 "${DISSENTER_HOME}"/product_logo_64.png "${PN}"-browser.png || die
+	newicon -s 128 "${DISSENTER_HOME}"/product_logo_128.png "${PN}"-browser.png || die
+	newicon -s 256 "${DISSENTER_HOME}"/product_logo_256.png "${PN}"-browser.png || die
 	
 	dodoc "${DISSENTER_DOC}"/changelog
 	dodoc "${DISSENTER_MAN}"/"${PN}"-browser-stable.1
