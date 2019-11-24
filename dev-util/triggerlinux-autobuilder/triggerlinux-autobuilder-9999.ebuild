@@ -36,5 +36,5 @@ src_prepare() {
 src_install() {
         mkdir ${D}/opt
 	cp -r ${S}/TriggerLinux ${D}/opt/TriggerLinux
-	chmod -R 777 ${D}/opt/TriggerLinux
+	chmod -R a+rw ${D}/opt/TriggerLinux
 }
